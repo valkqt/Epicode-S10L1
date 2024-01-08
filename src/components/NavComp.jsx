@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Form from "react-bootstrap/Form";
 
 
-function Navweh({ searchText, onSearchChange }) {
+function NavComp({ searchText, onSearchChange }) {
     return (
       <Navbar expand="lg" className="bg-info-subtle">
         <Container>
@@ -39,4 +39,4 @@ function Navweh({ searchText, onSearchChange }) {
     );
   }
   
-  export default Navweh;
+  export default NavComp;

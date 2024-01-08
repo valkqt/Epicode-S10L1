@@ -2,6 +2,8 @@ import "./App.css";
 import React from "react";
 import data from "./data/books.json";
 import NavComp from "./components/NavComp.jsx";
+import Jumbotron from "./components/Jumbotron.jsx";
+
 import SidebarComp from "./components/SidebarComp.jsx";
 import CardComp from "./components/CardComp.jsx";
 import { Container } from "react-bootstrap";
@@ -42,6 +44,11 @@ class App extends React.Component {
 
 
   render() {
+    const genre = window.location.pathname.split("/").pop();
+    const selectedBooks = data[genre || "fantasy"].filter((book) =>
+      book.title.includes(this.state.searchText)
+    );
+
     return (
       <>
         <Container as={"header"} fluid className="bg-secondary-subtle">
@@ -50,10 +57,12 @@ class App extends React.Component {
             onSearchChange={this.handleChange}
           />
         </Container>
+        <Jumbotron />
+      
         <main>
           {/* books */}
           <div className="booksContainer">
-            {data.fantasy.map((book) => {
+            {selectedBooks.map((book) => {
               return (
                 <CardComp
                   key={book.asin}

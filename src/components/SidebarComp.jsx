@@ -1,5 +1,6 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 class SidebarComp extends React.Component {
   constructor(props) {
@@ -10,9 +11,10 @@ class SidebarComp extends React.Component {
   render() {
     return (
       <>
-        <Form.Group>
+        <Form.Group >
           <Form.Label>Add Comment!</Form.Label>
-          <Form.Control></Form.Control>
+          <Form.Control className="my-3"></Form.Control>
+          <Button variant="danger" type="submit">Submit</Button>
         </Form.Group>
         <hr />
         <div>

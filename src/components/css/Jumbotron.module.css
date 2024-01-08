@@ -1,0 +1,19 @@
+.jumboPad {
+    padding: 5rem;
+}
+
+.jumboText {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+p.jumboText  {
+    display:none
+
+}
+
+@media screen and (min-width: 768px) {
+    p.jumboText {
+        display: block;
+    }
+}
