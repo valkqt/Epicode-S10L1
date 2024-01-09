@@ -12,8 +12,6 @@ function App() {
   const [searchText, setSearchText] = React.useState("");
   const [comments, setComments] = React.useState([]);
   const [currentAsin, setcurrentAsin] = React.useState("");
-  const [commentText, setCommentText] = React.useState("");
-  const [rating, setRating] = React.useState("");
   const [loading, setLoading] = React.useState(false)
 
   const genre = window.location.pathname.split("/").pop();
@@ -42,9 +40,9 @@ function App() {
       });
   }
 
-  function addComment() {
+  function addComment(text, rating) {
     const newPost = {
-      comment: commentText,
+      comment: text,
       rate: rating,
       elementId: `${currentAsin}`,
     };
@@ -95,8 +93,6 @@ function App() {
             comments={comments}
             asin={currentAsin}
             onFormSubmit={addComment}
-            textInput={setCommentText}
-            ratingInput={setRating}
             loading={loading}
           />
         </div>

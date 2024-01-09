@@ -4,12 +4,14 @@ import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 
 function SidebarComp(props) {
+  const [commentText, setCommentText] = React.useState("");
+  const [rating, setRating] = React.useState("");
   return (
     <>
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          props.onFormSubmit();
+          props.onFormSubmit(commentText, rating);
           e.target.reset();
         }}
       >
@@ -18,45 +20,22 @@ function SidebarComp(props) {
           <Form.Control
             className="my-3"
             placeholder="write a comment"
-            onChange={(e) => props.textInput(e.target.value)}
+            onChange={(e) => setCommentText(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <Form.Group className="d-flex justify-content-around">
-          <Form.Check
-            type="radio"
-            label={"1"}
-            value={"1"}
-            name={"rating"}
-            onClick={(e) => props.ratingInput(e.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            label={"2"}
-            value={"2"}
-            name={"rating"}
-            onClick={(e) => props.ratingInput(e.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            label={"3"}
-            value={"3"}
-            name={"rating"}
-            onClick={(e) => props.ratingInput(e.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            label={"4"}
-            value={"4"}
-            name={"rating"}
-            onClick={(e) => props.ratingInput(e.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            label={"5"}
-            value={"5"}
-            name={"rating"}
-            onClick={(e) => props.ratingInput(e.target.value)}
-          />
+          {[1, 2, 3, 4, 5].map((value) => {
+            return (
+              <Form.Check
+                key={value}
+                type="radio"
+                label={value}
+                value={value}
+                name={"rating"}
+                onClick={() => setRating(value)}
+              />
+            );
+          })}
         </Form.Group>
         <Button variant="danger" type="submit">
           Submit
@@ -68,7 +47,7 @@ function SidebarComp(props) {
           props.comments.map((comment) => {
             return (
               <Fragment key={comment._id}>
-                {props.loading && <Spinner variant="danger d-block"/>}
+                {props.loading && <Spinner variant="danger d-block" />}
                 {!props.loading && (
                   <div className="d-flex justify-content-between">
                     <p>{comment.comment}</p>
