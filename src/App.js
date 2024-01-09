@@ -9,21 +9,18 @@ import CardComp from "./components/CardComp.jsx";
 import { Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { searchText: "", comments: [], currentAsin: ""};
-    this.handleChange = this.handleChange.bind(this);
-    this.getComments = this.getComments.bind(this)
-  }
+function App() {
+  const [searchText, setSearchText] = React.useState("");
+  const [comments, setComments] = React.useState([]);
+  const [currentAsin, setcurrentAsin] = React.useState("");
 
-  handleChange(e) {
-    this.setState({ ...this.state, searchText: e.target.value });
-  }
+  const genre = window.location.pathname.split("/").pop();
+  const selectedBooks = data[genre || "fantasy"].filter((book) =>
+    book.title.includes(searchText)
+  );
 
-  getComments(asin) {
+  function getComments(asin) {
     const endpoint = `https://striveschool-api.herokuapp.com/api/books/${asin}/comments`;
-
 
     fetch(endpoint, {
       method: "GET",
@@ -35,57 +32,45 @@ class App extends React.Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
-        this.setState({...this.state, comments: data})
+        console.log(data);
+        setComments(data);
       });
-
   }
 
+  return (
+    <>
+      <Container as={"header"} fluid className="bg-secondary-subtle">
+        <NavComp
+          searchText={searchText}
+          onSearchChange={(e) => setSearchText(e.target.value)}
+        />
+      </Container>
+      <Jumbotron />
 
-
-  render() {
-    const genre = window.location.pathname.split("/").pop();
-    const selectedBooks = data[genre || "fantasy"].filter((book) =>
-      book.title.includes(this.state.searchText)
-    );
-
-    return (
-      <>
-        <Container as={"header"} fluid className="bg-secondary-subtle">
-          <NavComp
-            searchText={this.state.searchText}
-            onSearchChange={this.handleChange}
-          />
-        </Container>
-        <Jumbotron />
-      
-        <main>
-          {/* books */}
-          <div className="booksContainer">
-            {selectedBooks.map((book) => {
-              return (
-                <CardComp
-                  key={book.asin}
-                  img={book.img}
-                  title={book.title}
-                  asin={book.asin}
-                  selected={book.asin === this.state.currentAsin}
-                  onClickComments={() => {
-                    this.getComments(book.asin); 
-                    this.setState({...this.state, currentAsin: book.asin})
-                  }}
-                />
-              );
-            })}
-          </div>
-          {/* sidebar with comments */}
-          <div className="commentsSidebar">
-            <SidebarComp comments={this.state.comments}/>
-          </div>
-        </main>
-      </>
-    );
-  }
+      <main>
+        <div className="booksContainer">
+          {selectedBooks.map((book) => {
+            return (
+              <CardComp
+                key={book.asin}
+                img={book.img}
+                title={book.title}
+                asin={book.asin}
+                selected={book.asin === currentAsin}
+                onClickComments={() => {
+                  getComments(book.asin);
+                  setcurrentAsin(book.asin);
+                }}
+              />
+            );
+          })}
+        </div>
+        <div className="commentsSidebar">
+          <SidebarComp comments={comments} asin={currentAsin} />
+        </div>
+      </main>
+    </>
+  );
 }
 
 export default App;
