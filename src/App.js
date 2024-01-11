@@ -18,6 +18,7 @@ function App() {
   const selectedBooks = data[genre || "fantasy"].filter((book) =>
     book.title.includes(searchText)
   );
+  console.log(selectedBooks.length)
 
   function getComments(asin) {
     const endpoint = `https://striveschool-api.herokuapp.com/api/books/${asin}/comments`;
@@ -79,6 +80,7 @@ function App() {
                 img={book.img}
                 title={book.title}
                 asin={book.asin}
+                data-testid={'card'}
                 selected={book.asin === currentAsin}
                 onClickComments={() => {
                   getComments(book.asin);

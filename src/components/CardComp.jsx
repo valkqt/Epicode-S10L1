@@ -3,16 +3,15 @@ import Card from "react-bootstrap/Card";
 import css from "./css/CardComp.module.css";
 
 function CardComp(props) {
-      const highlighted = props.selected ? css.highlighted : undefined;
+      const highlighted = props.selected ? {outline: "2px solid red"} : undefined;
 
 
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Body
-        className={highlighted}
-        onClick={
-          props.onClickComments
-        }
+      style={highlighted}
+        data-testid={'card'}
+        onClick={ props.onClickComments}
       >
         <Card.Img variant="top" src={props.img} />
 

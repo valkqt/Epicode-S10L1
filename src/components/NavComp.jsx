@@ -28,6 +28,7 @@ function NavComp({ searchText, onSearchChange }) {
                   placeholder="write some stuff"
                   id="search"
                   name="search"
+                  data-testid={'search'}
                   onChange={onSearchChange}
                 />
               </Form.Group>
