@@ -39,17 +39,17 @@ describe("cliccare su una card diversa cambia il bordo", () => {
   });
 });
 
-// describe("test commenti", () => {
-//   it("le recensioni si visualizzano correttamente?", () => {
-//     render(<App />)
-//     const card = screen.queryAllByTestId('card')[5]
-//     fireEvent.click(card)
-//     const reviewArea = document.querySelector('commentsSidebar').childNodes[2]
-//     if(reviewArea.hasChildNodes) {
-//       expect(reviewArea.children).not.toBeNull
-//     } else {
-//       expect(reviewArea.children).toBeNull
-//     }
+describe("test commenti", () => {
+  it("le recensioni si visualizzano correttamente?", () => {
+    render(<App />)
+    const card = screen.queryAllByTestId('card')[0]
+    fireEvent.click(card)
+    const reviewArea = document.querySelector('.commentsSidebar').childNodes[2]
+    if(reviewArea.hasChildNodes) {
+      expect(reviewArea.children).not.toBeNull
+    } else {
+      expect(false)
+    }
     
-//   });
-// });
+  });
+});
