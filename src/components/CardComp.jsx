@@ -7,7 +7,7 @@ function CardComp(props) {
 
 
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card style={{ width: "218rem" }}>
       <Card.Body
       style={highlighted}
         data-testid={'card'}
